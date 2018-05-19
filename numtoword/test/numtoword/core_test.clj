@@ -3,5 +3,7 @@
             [numtoword.core :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+  (testing "Zero converstion"
+    (is (= 'Zero (numtoword 0)) "Zero test failed")
+  )
+)

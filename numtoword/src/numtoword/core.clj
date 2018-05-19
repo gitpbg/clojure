@@ -1,6 +1,5 @@
 (ns numtoword.core
   (:gen-class)
-  (:require [numtoword.numarray :as na])
 )
 
 (def words {
@@ -11,7 +10,7 @@
   50 'Fifty 60 'Sixty 70 'Seventy 80 'Eighty 90 'Ninety
   100 'Hundred 1000 'Thousand 1000000 'Million
 })
-(def DEBUG true)
+(def DEBUG false)
 (def MILLION 1000000)
 (def BILLION (* MILLION 1000))
 (def TRILLION (* BILLION 1000))
