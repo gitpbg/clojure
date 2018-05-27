@@ -36,7 +36,8 @@
 (defn write-n-times "write a number ntimes" [n greet]
   (println n)
   (loop [x n] (println (str x "=>" greet)) (if (> x 0 ) (recur (dec x))))
-  )
+)
+
 (defn maps 
   "practice maps"
   []
@@ -44,6 +45,40 @@
     (map #(list (first %) (second %)) mymap)
   )
 )
+
+(defn iseven? 
+  "custom debug predicate"
+  [idx val]
+  (println "index " idx "value" val)
+  (when (even? idx) val)
+)
+
+(defn test-keep-indexed 
+  "testing for keep indexed. Used to prune a sequence"
+  []
+ (println "Keep indexed will allow filtering on index")
+ (def myvec (vec (range 10)))
+ (println myvec)
+ (println (keep-indexed iseven? myvec))
+)
+
+(defn test-for-assoc
+  "testing for assoc and dissoc.  Used to modify a hash or vector (assoc only)"
+  []
+  (def myvec (vec (range 10)))
+  (println "define a vector with range 10")
+  (println myvec)
+  (println "change element 0 to 20")
+  (println (assoc myvec 0 20))
+  (println "define a dictionary with :first 20 :second 30 :third 40")
+  (def mydict {:first 20 :second 30 :third 40})
+  (println mydict)
+  (println "assoc a new element :fourth 50")
+  (println (assoc mydict :fourth 50))
+  (println "dissoc :second")
+  (println (dissoc mydict :second))
+)
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
