@@ -34,4 +34,6 @@
 (defn -main
   "Main entry point"
   [& args]
+  (println "Enter a number ")
+  (numtoword (Integer/parseInt (read-line)))
 )
