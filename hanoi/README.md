@@ -1,6 +1,6 @@
 # hanoi
 
-FIXME: description
+Towers of hanoi using Clojure
 
 ## Installation
 

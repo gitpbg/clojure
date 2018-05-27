@@ -1,8 +1,8 @@
 (defproject hanoi "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :description "Towers of Hanoi"
+  :url "http://gharpure.com"
+  :license {:name "Gharpure Public License"
+            :url "http://www.gharpure.com"}
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot hanoi.core
   :target-path "target/%s"
