@@ -1,5 +1,10 @@
 (ns sandbox.core
-  (:gen-class))
+  (:gen-class)
+  (:require [clojure.data.csv :as csv]
+    [clojure.java.io :as io]
+  )
+)
+
 
 (defn printvec "print a vector"
   [vec]
@@ -79,9 +84,50 @@
   (println (dissoc mydict :second))
 )
 
+(def headers [])
+(def thedata [])
+(def columns 
+  (map keyword [
+    "COUNT PARTICIPANTS"
+    "COUNT FEMALE"
+    "COUNT MALE"
+    "COUNT AMERICAN INDIAN"
+    ]
+  )
+)
+
+(defn test-csv-read 
+  "Sample code to read a csv file"
+  []
+  (let [
+;    filename "/Users/gharpure/throwaway/data/Demographic_Statistics_By_Zip_Code.csv"
+     filename "./Demographic_Statistics_By_Zip_Code.csv"
+    ]
+    (println filename)
+    (with-open [reader (io/reader filename)]
+      (let [csvr (csv/read-csv reader)]
+        (def headers (map keyword (first csvr)))
+        (def row (apply create-struct headers))
+        (def thedata (map 
+          (fn [therow] (apply struct row (seq therow)))
+          (rest csvr)
+        ))
+        (println (count thedata) "records")
+        (println (first thedata))
+        (doseq [kw columns]
+          (println kw (reduce 
+            (fn [a b] 
+              (+ a (Integer/parseInt (b kw)))
+          ) 0 thedata))
+        )
+      )
+    )
+  )
+)
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (vectors)
-  
+;  (vectors)
+  (test-csv-read) 
   )
