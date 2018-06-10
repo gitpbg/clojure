@@ -2,37 +2,6 @@
   (:gen-class))
 
 
-;;(def myagent (agent {:canwrite true :value 0 :canread false}))
-
-
-; (defn do_producer [state]
-;   (if (:canwrite state)
-;     (do 
-;       (println "Writing " (inc (:value state))) 
-;       {:canwrite false :value (inc (:value state)) :canread true}
-;     )
-;     state
-;   )
-; )
-
-; (defn do_consumer [state]
-;   (if (:canread state)
-;     (do 
-;       (println "read " (:value state))
-;       {:canwrite true :value (:value state) :canread false}
-;     )
-;     state
-;   )
-; )
-
-; (defn producer_thread_fn []
-;   (doseq [x (range 10)]
-;     (println x)
-;     (Thread/sleep 1000)
-;   )
-; )
-
-
 ;
 ; There is a vector 
 ; There is an agent that holds a value and boolean indicating last value
@@ -50,13 +19,13 @@
   (println "Producer Agent is " *agent*)
   (send pcagent consumer)
   (println (if (= x 10) "Producer not sending anything" (str "Producer sending " (inc x))))
-  (if (< x 10) (inc x) nil)
+  (if (< x 10) (inc x) (println "producer sending nil"))
 )
 
 (defn consumer [x]
   (println "Consumer Thread " (.getId (Thread/currentThread)))
   (if (nil? x)
-    nil
+    (do (println "Consumer x is now nil") (shutdown-agents) nil)
     (do 
       (println "Consumer Agent is " *agent*)
       (println "Consumer got " x)
@@ -67,6 +36,9 @@
 )
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Kick off producer"
   [& args]
-  (println "Hello, World!"))
+  (println "Starting producer")
+  (send pcagent producer)
+  (println "Done")
+)
